@@ -5,9 +5,4 @@
     //RIFERIMENTO AD UNA LIBRERIA, AGGIUNGI, RIFERIMENTO PROGETTO, OK
     public int customerID;
     public string customerName;
-
-
-
-
-
 }
