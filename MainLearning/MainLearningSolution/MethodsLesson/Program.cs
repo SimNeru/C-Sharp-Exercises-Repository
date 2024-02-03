@@ -36,7 +36,7 @@ class MethodsLesson
         var p = 7.4;
         product2.CalculateTax(p);
         Console.WriteLine("p is:" + p);
-        product3.CalculateTax(cost: 10000, percentage: 3.4);
+        product3.CalculateTax(cost: 10000, percentage: 3.4);  
 
         /*var numero = 4;
         product1.MetodoProva(numero);

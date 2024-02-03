@@ -83,10 +83,10 @@
         return dateOfPurchase;
     }
 
-    public int GetNumeroProva()
+    /*public int GetNumeroProva()
     {
         return numeroProva;
-    }
+    }*/
 
     /*method
     cost <= 20000 then tax = 10%
