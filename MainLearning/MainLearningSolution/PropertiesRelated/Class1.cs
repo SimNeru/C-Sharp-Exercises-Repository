@@ -12,8 +12,13 @@ public class Class1
     //può non essere readonly ma lo può essere la proprietà GET
     private double _tax;
 
-    
-    
+    //Ci sono GET e SET dichiarabili automaticamente ma saranno sola lettura
+    //utile solo quando non vogliamo scrivere alcuna validazione o logica di calcolo relativa ai valori dei campi
+    public string Description { get; set; }
+
+    //Da C# 6.0 si possono definire valori per le properties
+    public string BirthPlace { get; set; } = "Manhattan";
+
     private static string _companyName;
 
     //ISTANCE PROPERTY
