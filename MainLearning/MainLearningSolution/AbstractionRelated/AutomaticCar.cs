@@ -7,4 +7,3 @@ public class AutomaticCar : Car
         Console.WriteLine("Automatic change");
     }
 }
-
