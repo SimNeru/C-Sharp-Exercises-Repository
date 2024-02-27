@@ -1,5 +1,6 @@
 ﻿using System;
 using AbstractionRelated;
+using AbstractionRelated.Business;
 
 class Program
 {
@@ -14,13 +15,16 @@ class Program
      * Quando usare una classe Astratta e un'Interfaccia IMPORTANTE
      * Nella classe ASTRATTA si possono definire sia metodi astratti che non, le classi che le estenderanno
      * sono obbligate ad implementare i metodi definiti astratti al suo interno, ma gli altri no.
-     * Le INTERFACCE sono obbligano ad implementare tutti i metodi definiti al loro interno
+     * Le INTERFACCE obbligano ad implementare tutti i metodi definiti al loro interno
+     *
+     * Multiple istanze di interfacce, una classe figlia può avere più interfacce genitrici
+     * 
      */
 
     static void Main()
     {
         //Car car = new Car(); ERROR non si può creare oggetto classe astratta
-
+        
         AutomaticCar one = new AutomaticCar();
         Console.WriteLine("Car one has been created and got.. ");
         one.ChangeGear();
@@ -46,6 +50,30 @@ class Program
         Console.WriteLine(":::Type:::"); plane.TypeOf();
         Console.WriteLine(":::Classification:::"); plane.VehicleClassification();
         Console.WriteLine(":::License requested:::"); plane.RequiredLicense();
+
+        Console.ReadKey();
+
+        //crea una variabile di riferimento alla classe Employee (astratta)
+        Employee emp;
+
+        //crea oggetto Manager
+        emp = new Manager(01, "Manager", "Location", "departmentName");
+        //Manager.GetHealthInsuranceAmount
+        Console.WriteLine(emp.GetHealthInsuranceAmount());
+
+        emp = new SalesMan(02, "SalesMan", "Location", "departmentName");
+        //SalesMan.GetHealthInsuranceAmount
+        Console.WriteLine(emp.GetHealthInsuranceAmount());
+
+        Console.ReadKey();
+
+        IPerson person;
+
+        person = new Manager(99, "Paul Allen", "Washington", "Contability");
+        //Formato universalmente accettato aaaa/mm/gg
+        person.DateOfBirth = System.Convert.ToDateTime("1990-07-15");
+
+        Console.WriteLine("Manager age: "+ person.GetAge());
 
         Console.ReadKey();
     }

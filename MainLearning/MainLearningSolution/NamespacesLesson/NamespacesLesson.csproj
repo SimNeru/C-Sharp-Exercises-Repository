@@ -4,16 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{EDF565E7-62D9-4728-9D21-E913EDE0B691}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AbstractionRelated</RootNamespace>
-    <AssemblyName>AbstractionRelated</AssemblyName>
+    <ProjectGuid>{C65C0FD6-3558-40A3-B83D-C9BE2C74181D}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>NamespacesLesson</RootNamespace>
+    <AssemblyName>NamespacesLesson</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -41,17 +43,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Business\Employee.cs" />
-    <Compile Include="Business\IPerson.cs" />
-    <Compile Include="Business\Manager.cs" />
-    <Compile Include="Business\SalesMan.cs" />
-    <Compile Include="Vehicles\AutomaticCar.cs" />
-    <Compile Include="Vehicles\Boat.cs" />
-    <Compile Include="Vehicles\Car.cs" />
-    <Compile Include="Vehicles\IVehicle.cs" />
-    <Compile Include="Vehicles\ManualCar.cs" />
-    <Compile Include="Vehicles\Plane.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NamespacesRelated\NamespacesRelated.csproj">
+      <Project>{3bf1bdce-9471-4f3d-a5a2-a16f8db1959e}</Project>
+      <Name>NamespacesRelated</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
