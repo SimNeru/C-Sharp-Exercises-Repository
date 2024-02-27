@@ -4,7 +4,7 @@ class MethodsLesson
 {
     public static void Main()
     {
-        const string developerName = "Simone";
+        const string developerName = "Sim";
 
         Product product1 = new Product();
         Product.SetTotalNumberOfProducts(Product.GetTotalNumberOfProducts()+1); //1

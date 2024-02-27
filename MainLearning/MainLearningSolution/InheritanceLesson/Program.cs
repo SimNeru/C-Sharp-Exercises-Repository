@@ -4,18 +4,18 @@ class Program
 {
     static void Main()
     {
-        Employee employee = new Employee(101, "Simone", "Torino");
+        Employee employee = new Employee(101, "Luigi", "Mushroom Kingdom");
         /*employee.EmpID = 101;
         employee.EmpName = "Simone";
         employee.Location = "Torino";*/
 
-        Manager manager = new Manager(01,"Lara","Firenze","Accounting");
+        Manager manager = new Manager(01,"Mario", "Mushroom Kingdom", "Accounting");
         /*manager.EmpID = 01;
         manager.EmpName = "Lara";
         manager.Location = "Firenze";
         manager.DepartmentName = "Accounting";*/
 
-        SalesMan salesMan = new SalesMan(1001,"Pino","Roma","Lazio");
+        SalesMan salesMan = new SalesMan(1001,"Waluigi","Manhattan","New York");
         /*salesMan.EmpID = 1001;
         salesMan.EmpName = "Pino";
         salesMan.Location = "Roma";*/
