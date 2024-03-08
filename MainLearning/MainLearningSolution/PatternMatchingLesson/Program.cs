@@ -1,4 +1,5 @@
 ﻿using System;
+using InnerClass;
 using PatternMatchingRelated;
 
 /* PATTERN MATCHING
@@ -60,6 +61,24 @@ class Program
 
         //Console.WriteLine(x.ParentName); //C# non controlla la presenza della proprietà
         Console.WriteLine(x.x as String);
+        Console.ReadKey();
+
+        /* INNER CLASS
+        *  E' una classe inserita dentro un'altra classe,
+        *  per impostazione le classi interne sono accessibili solo 
+        *  all'interno della stessa classe esterna.
+        */
+
+        //create object inner classe
+        InnerClass.MarksCalculation.CalculationHelper ch = new InnerClass.MarksCalculation.CalculationHelper();
+        Console.WriteLine(ch.Multiply(10,5));
+
+        //call outer class's method
+        InnerClass.MarksCalculation mc = new InnerClass.MarksCalculation();
+        Student s = new Student() { SecuredMarks = 35, MaxMarks = 50 };
+
+        mc.CalculatePercentage(s);
+        Console.WriteLine($"Percentage: {s.Percentage}");
         Console.ReadKey();
     }
 }
