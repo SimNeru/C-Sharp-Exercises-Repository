@@ -11,6 +11,19 @@ using System.Collections.Generic;
  * Metodo che usa "Expression body members", con valori di ritorno.
  * public ReturnType MethodName( ) => AnyValue(tipo un'espressione unica 10*20); */
 
+/* SWITCH Expression, è una semplificazione dello "switch-case"
+ * 
+ * ES:
+ * sourceVariable switch
+ * {
+ *      value1 => result1,
+ *      value2 => result2,
+ *      ...
+ *       _  => defaultResult
+ * }
+ * 
+ * Non usabile se desideriamo chiamare un metodo */
+
 class Program
 {
     static void Main()
@@ -66,16 +79,3 @@ public class Student
         get => _studentName;
     }
 }
-
-/* SWITCH Expression, è una semplificazione dello "switch-case"
- * 
- * ES:
- * sourceVariable switch
- * {
- *      value1 => result1,
- *      value2 => result2,
- *      ...
- *       _  => defaultResult
- * }
- * 
- * Non usabile se desideriamo chiamare un metodo */

@@ -113,6 +113,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpressionTreeLesson", "Exp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpressionBodiedMembersRelated", "ExpressionBodiedMembersRelated\ExpressionBodiedMembersRelated.csproj", "{61B71A92-1DCD-4AD4-832B-5EE32785D23C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArraysRelated", "ArraysRelated\ArraysRelated.csproj", "{BBCD5522-B2CB-4B6C-95FE-01336480424E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -327,6 +329,10 @@ Global
 		{61B71A92-1DCD-4AD4-832B-5EE32785D23C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61B71A92-1DCD-4AD4-832B-5EE32785D23C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{61B71A92-1DCD-4AD4-832B-5EE32785D23C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBCD5522-B2CB-4B6C-95FE-01336480424E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBCD5522-B2CB-4B6C-95FE-01336480424E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBCD5522-B2CB-4B6C-95FE-01336480424E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBCD5522-B2CB-4B6C-95FE-01336480424E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -384,6 +390,7 @@ Global
 		{C6AFFC5A-7B90-491A-9B91-93458F2BED76} = {A04EBD16-7421-4321-8C9B-042DE45E32FB}
 		{CF230FF9-0743-4AE2-949A-99F838A4814B} = {F5240E54-284C-4358-9CA3-89B1F0413A77}
 		{61B71A92-1DCD-4AD4-832B-5EE32785D23C} = {F5240E54-284C-4358-9CA3-89B1F0413A77}
+		{BBCD5522-B2CB-4B6C-95FE-01336480424E} = {F5240E54-284C-4358-9CA3-89B1F0413A77}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2DEA18B3-A4E9-4BF8-A95E-E8378A08C3A4}
