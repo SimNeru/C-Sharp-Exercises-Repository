@@ -20,7 +20,6 @@ class Program
         Console.WriteLine(user2.RegistrationStatus);
         Console.WriteLine("AGE: " + user2.Age + "\n");
 
-
         //bool rappresenta lo stato della domanda
         User<bool, bool> user3 = new User<bool, bool>();
         //set value

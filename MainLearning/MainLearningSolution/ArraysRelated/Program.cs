@@ -47,6 +47,22 @@ class Program
             Console.WriteLine(b[i]);
         }
 
+        foreach (int i in a)
+        {
+            Console.WriteLine($"Sfrutto il forEach: {i} ciclo");
+        }
+
+        foreach (string i in b)
+        {
+            Console.WriteLine($"Sfrutto il forEach: {i} ciclo");
+        }
+
+        //reverse
+        for (int i = a.Length - 1; i >= 0; i--)
+        {
+            Console.WriteLine($"Sfrutto in reverse: {a[i]}");
+        }
+
         Console.ReadKey();
     }
 }
