@@ -123,9 +123,13 @@ namespace ThreadingApp
             thread2.Start();
 
             Console.WriteLine(mainThread.Name + " completato");
+            Console.WriteLine($"\nShared Resource: {Shared.SharedResource}"); // Expected: 0
+
+            // L'aspettativa sarebbe quella che la stessa risorsa condivisa dovrebbe essere incrementata di +1 da un thread e -1 da un altro thread
+            // coordinandosi simultaneamente, ma non avviene nella realtà, il primo thread overrida il secondo oppure viceversa problema noto come RACE CONDITION
+            // Ne esistono altri: DEADLOCK, DATA INCONSISTENCY, STARVATION
 
             Console.ReadKey();
-
         }
 
         static void MethodMain()
@@ -135,6 +139,8 @@ namespace ThreadingApp
     }
 
     #region SHARED RESOURCES
+
+    // Nella casistica si desideri condividere del data su più threads
     class Shared
     {
         public static int SharedResource { get; set; }
@@ -236,6 +242,11 @@ namespace ThreadingApp
                 for (int i = 0; i <= Count; i++)
                 {
                     sum += i;
+                    Console.WriteLine($"Shared Resource in Count-Up: {Shared.SharedResource}");
+
+                    // Data condiviso tra i threads 
+                    Shared.SharedResource++;
+
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.Write($"i = {i}, ");
                     Thread.Sleep(500); // 1000 milliseconds = 1 sec
@@ -271,6 +282,9 @@ namespace ThreadingApp
 
                 for (int? j = Count; j >= 1; j--)
                 {
+                    Console.WriteLine($"Shared Resource in Count-Down: {Shared.SharedResource}");
+                    Shared.SharedResource--;
+
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write($"j = {j}, ");
                     Thread.Sleep(500); // 1000 milliseconds = 1 sec
