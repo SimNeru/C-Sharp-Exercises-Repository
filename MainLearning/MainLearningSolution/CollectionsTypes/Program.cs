@@ -119,7 +119,6 @@ namespace CollectionsTypes
             int vi = employees2.IndexOfValue("Ania");
             Console.WriteLine("\nIndex of Ania: " + vi);
 
-
             Console.ReadLine();
 
         }
