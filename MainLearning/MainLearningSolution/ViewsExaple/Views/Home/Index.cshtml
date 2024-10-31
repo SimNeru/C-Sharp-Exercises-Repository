@@ -1,0 +1,138 @@
+﻿@using ViewsExaple.Models
+@model IEnumerable<Person> // Strong typed model View che accetta in entrata un modello Person
+@{
+    // COMMENTATO DOPO AVER SPOSTATO LA LOGICA NELLA 'VIEW DATA' DEL CONTROLLERHOME
+    // string appTitle = "Asp.Net Core Demo App";
+    // List<Person> people = new List<Person>()
+    // {
+    //         new Person()
+    //         {
+    //             Name = "Jane",
+    //             BirthDate = DateTime.Parse("2005-01-09"),
+    //             PersonGender = Gender.Female
+    //         },
+
+    //         new Person()
+    //         {
+    //             Name = "John",
+    //             BirthDate = DateTime.Parse("2008-07-06"),
+    //             PersonGender = Gender.Male
+    //         },
+
+    //         new Person()
+    //         {
+    //             Name = "Jojo",
+    //             BirthDate = DateTime.Parse("2000-05-12"),
+    //             PersonGender = Gender.Other
+    //         },
+    // };
+}
+
+@* local function *@
+@{
+    List<Person>? people = (List<Person>)ViewData["people"];
+
+    double? GetAge(DateTime? dateBirth)
+    {
+        if (dateBirth is not null)
+        {
+            return Math.Round(Convert.ToDouble(((TimeSpan)(DateTime.Now - dateBirth.Value)).TotalDays) / 365.25);
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    // javascript code
+    // string alertMessage = $"<script>alert('{people.Count} people found.')</script>";
+
+}
+
+<!DOCTYPE
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    @* Riferimento all'uso di view data nell'home controller *@
+    <title>@ViewData["appTitle"]</title>
+    <meta charset="utf-8" />
+    <link href="~/StyleSheet.css" rel="stylesheet" />
+</head>
+<body>
+
+    @* @Html.Raw(alertMessage) *@
+    <div class="page-content">
+        <h1>Person</h1>
+
+        @* ViewBag non serve fare il typecast, una proprietà che consente di accedere a ViewData *@
+        @foreach (Person? person in /* ViewBag.people (inutile in caso di tipizzazione della view definita) */ Model)
+        {
+            // static text
+            @: Hello to
+            @* <span>Hello to</span> *@
+            int x;
+
+            <div class="box float-left w-50">
+                <h3>@person.Name</h3>
+                <table class="table w-100">
+                    <tbody>
+                        @if (person.BirthDate.HasValue)
+                        {
+                            @* double? age = Math.Round(Convert.ToDouble(((TimeSpan)(DateTime.Now - person.BirthDate)).TotalDays) / 365.25);
+                    <h3>@age years old</h3> *@
+                            <tr>
+                                <td>Age</td>
+                                <td><span>@GetAge(person.BirthDate) years old</span></td>
+                            </tr>
+                            <tr>
+                                <td>Date Of Birth</td>
+                                <td><span>@person.BirthDate.Value.ToString("dd/MM/yyyy")</span></td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                <td>
+                                    <span>Age is unknown</span>
+                                </td>
+                            </tr>
+                        }
+
+                        @switch (person.PersonGender)
+                        {
+                            case Gender.Male:
+                                <tr>
+                                    <td>
+                                        <span>November 19 is International Men's Day'</span>
+                                    </td>
+                                </tr>
+                                break;
+
+                            case Gender.Female:
+                                <tr>
+                                    <td>
+                                        <span>March 8 is International Women's Day'</span>
+                                    </td>
+                                </tr>
+                                break;
+
+                            case Gender.Other:
+                                <tr>
+                                    <td>
+                                        <span>March 31 International Transgender's</span>
+                                    </td>
+                                </tr>
+                                break;
+                        }
+                    </tbody>
+                </table>
+                <div>
+                    <a href="/person-details/@person.Name">Details</a>
+                </div>
+            </div>
+        }
+        <div>
+            <a href="/person-with-product">Person with Product</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+﻿@model IEnumerable<string> 
+@* _ViewInjection 
+    beneficio se si vuole un servizio in una view che non è fornita con controller,
+    la view injection permette appunto di prendere qualunque servizio si voglia 
+    molti dbs saranno iniettati dal controller, ma se c'è un servizio specifico per una view si può iniettare direttamente
+*@
+@inject ICitiesService citiesServiceInView
+
+@{
+    ViewBag.Title = "Home";
+}
+
+<h1>Cities</h1>
+@{
+    List<string> citiesFromView = citiesServiceInView.GetCitiesMethod();
+}
+
+<ul class="list">
+    @foreach (string city in citiesFromView /* Model */)
+{
+    <li>@city</li>
+}
+</ul>
+
+<div>@ViewBag.InstanceId_CitiesService_1</div>
+<div>@ViewBag.InstanceId_CitiesService_2</div>
+<div>@ViewBag.InstanceId_CitiesService_3</div>
+
+<div>@citiesServiceInView.ServiceInstanceId</div>
+
+<div class="box">@ViewBag.InstanceId_CitiesService_InScope</div>

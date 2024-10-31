@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/StyleSheet.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <div class="box">
+            <h1>Home</h1>
+        </div>
+        <div class="box">
+            @* @ViewBag.MyKey
+            @ViewBag.MyAPIKey*@
+            @ViewBag.ClientID
+        </div>
+        <div class="box">@ViewBag.ClientSecret</div>
+    </div>
+</body>
+</html>
