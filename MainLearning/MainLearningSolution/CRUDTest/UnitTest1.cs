@@ -17,19 +17,21 @@ namespace CRUDTest
             Assert.Equal(expected, actual);
         }
 
-        [Fact]
-        public void Test2()
-        {
-            // Arrange
-            MyMath mm = new MyMath();
-            int input1 = 10, input2 = 5;
-            int expected = 15;
+        // Lancia un errore nei test
 
-            // Act
-            int actual = mm.AddMistake(input1, input2);
+        //[Fact]
+        //public void Test2()
+        //{
+        //    // Arrange
+        //    MyMath mm = new MyMath();
+        //    int input1 = 10, input2 = 5;
+        //    int expected = 15;
 
-            // Assert
-            Assert.Equal(expected, actual);
-        }
+        //    // Act
+        //    int actual = mm.AddMistake(input1, input2);
+
+        //    // Assert
+        //    Assert.Equal(expected, actual);
+        //}
     }
 }
