@@ -54,5 +54,11 @@ namespace ServicesInterfaces
         /// <param name="personID">PersonID to delete</param>
         /// <returns>Returns true, if the deletion is successfull, otherwise false</returns>
         Task<bool> DeletePerson(Guid? personID);
+
+        /// <summary>
+        /// Return persons as CSV
+        /// </summary>
+        /// <returns>Returns the memory stream with CSV data</returns>
+        Task<MemoryStream> GetPersonsCSV();
     }
 }

@@ -17,9 +17,9 @@ namespace ServicesConcrete
         private readonly ICountriesRepository _countriesRepository;
 
         // constructor
-        public CountriesService(ICountriesRepository personsDBContext)
+        public CountriesService(ICountriesRepository countriesRepository)
         {
-            _countriesRepository = personsDBContext;
+            _countriesRepository = countriesRepository;
         }
 
         // Ogniqualvolta uno sviluppatore dovesse implementare una nuova funzionalità lo farà da qua
@@ -40,12 +40,12 @@ namespace ServicesConcrete
             */
 
             // Validation: countryAddRequest parameter can't be null
-            ArgumentNullException.ThrowIfNull(countryAddRequest, $"{countryAddRequest} countryAddRequest is null");
+            //ArgumentNullException.ThrowIfNull(countryAddRequest, $"{countryAddRequest} countryAddRequest is null");
             // Più lento? 
-            //if (countryAddRequest == null)
-            //{
-            //    throw new ArgumentNullException(nameof(countryAddRequest));
-            //}
+            if (countryAddRequest == null)
+            {
+                throw new ArgumentNullException(nameof(countryAddRequest));
+            }
 
             // Validation: countryAddRequest parameter can't be null
             if (countryAddRequest.CountryName == null)
@@ -74,7 +74,8 @@ namespace ServicesConcrete
 
         public async Task<List<CountryResponse>> GetAllCountries()
         {
-            return (await _countriesRepository.GetAllCountries()).Select(x => x.ToCountryResponse()).ToList();
+            List<Country> countries = await _countriesRepository.GetAllCountries();
+            return countries.Select(x => x.ToCountryResponse()).ToList();
         }
 
         public async Task<CountryResponse?> GetCountryByCountryID(Guid? countryID)

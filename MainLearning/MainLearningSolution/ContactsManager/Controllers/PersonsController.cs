@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Rotativa.AspNetCore;
 using ServicesInterfaces;
 using ServicesInterfaces.DTO;
 using ServicesInterfaces.DTO.Enums;
@@ -55,15 +56,15 @@ namespace ContactsManager.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            //List<CountryResponse> countries = await _countriesService.GetAllCountries();
-            //ViewBag.Countries = countries.Select(temp => new SelectListItem()
-            //{
-            //    Text = temp.CountryName,
-            //    Value = temp.CountryID.ToString(),
-            //});
-
             List<CountryResponse> countries = await _countriesService.GetAllCountries();
-            ViewBag.Countries = countries;
+            ViewBag.Countries = countries.Select(temp => new SelectListItem()
+            {
+                Text = temp.CountryName,
+                Value = temp.CountryID.ToString(),
+            });
+
+            //List<CountryResponse> countries = await _countriesService.GetAllCountries();
+            //ViewBag.Countries = countries;
             return View();
         }
 
@@ -74,10 +75,11 @@ namespace ContactsManager.Controllers
             if (!ModelState.IsValid)
             {
                 List<CountryResponse> countries = await _countriesService.GetAllCountries();
-                ViewBag.Countries = countries;
+                ViewBag.Countries = countries.Select(temp =>
+                new SelectListItem() { Text = temp.CountryName, Value = temp.CountryID.ToString() });
 
                 ViewBag.Errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
-                return View();
+                return View(personAddRequest);
             }
 
             PersonResponse personResponse = await _personService.AddPerson(personAddRequest);
@@ -122,6 +124,7 @@ namespace ContactsManager.Controllers
             if (ModelState.IsValid)
             {
                 PersonResponse updatePerson = await _personService.UpdatePerson(personUpdateRequest);
+                Console.WriteLine(updatePerson.ToString());
                 return RedirectToAction("Index");
             }
             else
@@ -160,6 +163,36 @@ namespace ContactsManager.Controllers
             await _personService.DeletePerson(personUpdateRequest.PersonID);
 
             return RedirectToAction("Index");
+        }
+
+        // necessaria dipendenza nuget 'Rotative' ed una config 'wkhtmltopdf' come file da
+        // scaricare dentro il progetto situata in wwwroot e richiamare il setup in Program
+        [Route("PersonsPDF")]
+        public async Task<IActionResult> PersonsPDF() 
+        {
+            //Get list of persons
+            List<PersonResponse> personsResponse = await _personService.GetAllPersons();
+
+            //Return view as pdf
+            return new ViewAsPdf("PersonsPDF", personsResponse, ViewData)
+            {
+                PageMargins = new Rotativa.AspNetCore.Options.Margins() 
+                { 
+                    Top = 20,
+                    Bottom = 20,
+                    Right = 20,
+                    Left = 20,
+                },
+                PageOrientation = Rotativa.AspNetCore.Options.Orientation.Landscape,
+            };
+        }
+
+        [Route("PersonsCSV")]
+        public async Task<IActionResult> PersonsCSV()
+        {
+            MemoryStream memoryStream = await _personService.GetPersonsCSV();
+
+            return File(memoryStream, "application/octet-stream", "persons.csv");
         }
     }
 }

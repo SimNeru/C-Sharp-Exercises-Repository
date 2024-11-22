@@ -1,4 +1,5 @@
-﻿using Entities;
+﻿using CsvHelper;
+using Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 using RepositoryContracts;
@@ -7,6 +8,8 @@ using ServicesInterfaces;
 using ServicesInterfaces.DTO;
 using ServicesInterfaces.DTO.Enums;
 using System.Data;
+using System.Globalization;
+using System.IO;
 
 namespace ServicesConcrete
 {
@@ -200,7 +203,7 @@ namespace ServicesConcrete
         {
             if (personUpdateRequest == null)
             {
-                throw new ArgumentNullException(nameof(Person));
+                throw new ArgumentNullException(nameof(personUpdateRequest));
             }
 
             ValidationHelper.ModelValidation(personUpdateRequest);
@@ -222,6 +225,8 @@ namespace ServicesConcrete
             matchingPerson.Address = personUpdateRequest.Address;
             matchingPerson.ReceiveNewsLetters = personUpdateRequest.ReceiveNewsLetters;
 
+            await _personsRepository.UpdatePerson(matchingPerson);
+
             return matchingPerson.ToPersonResponse();
         }
 
@@ -240,6 +245,32 @@ namespace ServicesConcrete
             await _personsRepository.DeletePersonByPersonID(personID.Value);
 
             return true;
+        }
+
+        public async Task<MemoryStream> GetPersonsCSV() 
+        { 
+            //MemoryStream usa la ram di memoria, salva un file anziché su memoria fisica su ram virtuale e velocizza
+            MemoryStream memoryStream = new MemoryStream();
+            //Streamwriter scriverà il contenuto in un oggetto memorystream
+            StreamWriter streamWriter = new StreamWriter(memoryStream);
+            //CultureInfo necessaria ad indicare con quale punteggiatura sarà riconosciuto,
+            //leaveOpen indica che dopo la scrittura, nella conversione del flusso del file sarà necessario
+            //ripartire dall'inizio (es. dopo scrittura di 100 byte bisogna ripartire dall'inizio per scrivere gli stessi dati)
+            CsvWriter csvWriter = new CsvWriter(streamWriter, CultureInfo.InvariantCulture, leaveOpen: true);
+
+            csvWriter.WriteHeader<PersonResponse>(); //PersonID,PersonName... Colonna nome
+            csvWriter.NextRecord(); // per spostarsi nella successiva linea di codice(aggiunge una barra rovesciata)
+
+            List<Person> persons = await _personsRepository.GetAllPersons();
+
+            await csvWriter.WriteRecordsAsync(persons); //1,abc,....
+
+            //Dopo aver scritto tutte le persone il cursore sarà in attesa internamente alla fine del flusso di memoria
+            //è necessario riportalo alla partenza, indicando la posizione 0
+            memoryStream.Position = 0;
+
+            //restituisco poi il memoryStream
+            return memoryStream;
         }
     }
 }

@@ -4,46 +4,50 @@
 }
 
 <a asp-controller="Persons" asp-action="Index" class="link-hover">
-    Back to Person List</a>
+    Back to Person List
+</a>
 <h2>Create Person</h2>
 
-<div class="w-50">
+<div class="center-box">
     <form asp-controller="Persons" asp-action="Create" method="post">
-        <button>Submit</button>
+
         @*PersonName*@
         <div class="form-field flex">
             <div class="w-25">
-                <label for="PersonName" class="form-label pt" >Person Name</label>
+                <label asp-for="PersonName" for="PersonName" class="form-label pt">Person Name</label>
             </div>
             <div class="flex-1">
-                <input asp-for="PersonName" class="form-input"/>
+                <input asp-for="PersonName" class="form-input" />
+                <span asp-validation-for="PersonName"></span>
             </div>
         </div>
 
         @*Email*@
         <div class="form-field flex">
             <div class="w-25">
-                <label for="Email" class="form-label pt">Email</label>
+                <label asp-for="Email" class="form-label pt">Email</label>
             </div>
             <div class="flex-1">
-                <input asp-for="Email"type="email" class="form-input" />
+                <input asp-for="Email" type="email" class="form-input" />
+                <span asp-validation-for="Email" class="text-red"></span>
             </div>
         </div>
 
         @*DataOfBirth*@
         <div class="form-field flex">
             <div class="w-25">
-                <label for="DateOfBirth" class="form-label pt">Date of Birth</label>
+                <label asp-for="DateOfBirth" class="form-label pt">Date of Birth</label>
             </div>
             <div class="flex-1">
                 <input asp-for="DateOfBirth" class="form-input" />
+                <span asp-validation-for="DateOfBirth" class="text-red"></span>
             </div>
         </div>
 
         @*Gender*@
         <div class="form-field flex">
             <div class="w-25">
-                <label for="Gender" class="form-label pt">Gender</label>
+                <label class="form-label">Gender</label>
             </div>
             <div class="flex-1">
                 @{
@@ -51,35 +55,34 @@
                 }
                 @foreach (string gender in genders)
                 {
-                    <input type="radio" asp-for="Gender" value="@gender" />
+                    <input type="radio" asp-for="Gender" value="@gender" id="@gender" />
                     <label for="@gender">@gender</label>
                 }
+                <span asp-validation-for="Gender" class="text-red"></span>
             </div>
         </div>
 
         @*Country*@
         <div class="form-field flex">
             <div class="w-25">
-                <label for="CountryID" class="form-label">Country</label>
+                <label class="form-label" asp-for="CountryID">Country</label>
             </div>
             <div class="flex-1">
-                <select asp-for="CountryID" class="form-input">
+                <select asp-for="CountryID" class="form-input" asp-items="@ViewBag.Countries">
                     <option value="">Please Select</option>
-                    @foreach (CountryResponse country in ViewBag.Countries)
-                    {
-                        <option value="@country.CountryID">@country.CountryName</option>
-                    }
                 </select>
+                <span asp-validation-for="CountryID" class="text-red"></span>
             </div>
         </div>
 
         @*Address*@
         <div class="form-field flex">
             <div class="w-25">
-                <label for="Address" class="form-label pt">Address</label>
+                <label asp-for="Address" class="form-label pt">Address</label>
             </div>
             <div class="flex-1">
                 <textarea asp-for="Address" class="form-input"></textarea>
+                <span asp-validation-for="Address" class="text-red"></span>
             </div>
         </div>
 
@@ -89,7 +92,8 @@
             </div>
             <div class="flex-1">
                 <input asp-for="ReceiveNewsLetters" class="form-input" value="true">
-                <label for="ReceiveNewsLetters" class="form-label">Receive News Letters</label>
+                <label asp-for="ReceiveNewsLetters" class="form-label">Receive News Letters</label>
+                <span asp-validation-for="ReceiveNewsLetters" class="text-red"></span>
             </div>
         </div>
 
@@ -99,6 +103,8 @@
             </div>
             <div class="flex-1">
                 <button class="button button-green-back">Create</button>
+
+                <div asp-validation-summary=All class="text-red"></div>
 
                 @if (ViewBag.Errors != null)
                 {
@@ -115,3 +121,20 @@
         </div>
     </form>
 </div>
+
+@* scripts con funzioni specifiche come lo storing della cache *@
+@section scripts
+{
+    @* attenzione: gli script sono collegati diretti ad un link, potrebbero causare problemi, conviene scaricare i file in locale nella cartella root e specificare di caricare quei files al momento in cui dovessero presentarsi problemi di caricamento dalla source remota *@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" 
+    asp-fallback-test="window.jQuery" 
+    asp-fallback-src="~/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.4/jquery.validate.min.js" 
+    asp-fallback-test="window.jQuery.validator" 
+    asp-fallback-src="~/jquery.validate.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js" 
+    asp-fallback-test="window.jQuery.validator.unobstrusive" 
+    asp-fallback-src="~/jquery.validate.unobtrusive.min.js"></script>
+}
