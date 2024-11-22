@@ -53,6 +53,7 @@ namespace ServicesInterfaces.DTO
 
         public PersonUpdateRequest ToPersonUpdateRequest() 
         {
+            // person => convert => PersonResponse
             return new PersonUpdateRequest()
             {
                 PersonID = PersonID,
@@ -64,6 +65,14 @@ namespace ServicesInterfaces.DTO
                 Address = Address,
                 ReceiveNewsLetters = ReceiveNewsLetters
             };
+        }
+
+        private PersonResponse ConvertPersonToPersonResponse(Person person)
+        {
+            PersonResponse personResponse = person.ToPersonResponse();
+            personResponse.Country = person.Country?.CountryName;
+            //_countriesService.GetCountryByCountryID(person.CountryID)?.CountryName; 'pre' implementazione della proprietà Country nell'entità di Person
+            return personResponse;
         }
     }
 
@@ -87,7 +96,8 @@ namespace ServicesInterfaces.DTO
                 Address = person.Address,
                 CountryID = person.CountryID,
                 Gender = person.Gender,
-                Age = (person.DateOfBirth != null) ? Math.Round((DateTime.Now - person.DateOfBirth.Value).TotalDays / 365.25) : null
+                Age = (person.DateOfBirth != null) ? Math.Round((DateTime.Now - person.DateOfBirth.Value).TotalDays / 365.25) : null,
+                Country = person.Country?.CountryName
             };
         }
     }

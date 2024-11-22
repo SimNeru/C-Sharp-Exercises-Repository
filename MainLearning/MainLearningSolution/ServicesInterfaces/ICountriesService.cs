@@ -12,19 +12,19 @@ namespace ServicesInterfaces
         /// </summary>
         /// <param name="countryAddRequest"></param>
         /// <returns>Country object after adding it</returns>
-        CountryResponse AddCountry(CountryAddRequest? countryAddRequest);
+        Task<CountryResponse> AddCountry(CountryAddRequest? countryAddRequest);
 
         /// <summary>
         /// Returns all countries from the list
         /// </summary>
         /// <returns>All country objects from the list as List</returns>
-        List<CountryResponse> GetAllCountries();
+        Task<List<CountryResponse>> GetAllCountries();
 
         /// <summary>
         /// Returns a country object based on the countryID
         /// </summary>
         /// <param name="countryID">CountryID (guid) to search</param>
         /// <returns>Matching country as CountryResponse object</returns>
-        CountryResponse? GetCountryByCountryID(Guid? countryID);
+        Task<CountryResponse?> GetCountryByCountryID(Guid? countryID);
     }
 }

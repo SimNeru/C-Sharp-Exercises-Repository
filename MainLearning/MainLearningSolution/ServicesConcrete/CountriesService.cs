@@ -1,23 +1,29 @@
 ﻿using Entities;
+using Microsoft.EntityFrameworkCore;
+using RepositoryContracts;
 using ServicesInterfaces;
 using ServicesInterfaces.DTO;
 using System.Data;
 
 namespace ServicesConcrete
 {
+    /*
+     * Essenziale indicare await quando i metodi a monte delle interfacce Service
+     * diventano dei return type di tipo task
+     */
     public class CountriesService : ICountriesService
     {
         // private field
-        private readonly List<Country> _countries;
+        private readonly ICountriesRepository _countriesRepository;
 
         // constructor
-        public CountriesService()
+        public CountriesService(ICountriesRepository personsDBContext)
         {
-            _countries = new List<Country>();
+            _countriesRepository = personsDBContext;
         }
 
         // Ogniqualvolta uno sviluppatore dovesse implementare una nuova funzionalità lo farà da qua
-        public CountryResponse AddCountry(CountryAddRequest? countryAddRequest)
+        public async Task<CountryResponse> AddCountry(CountryAddRequest? countryAddRequest)
         {
             /* TO DOES:
             - Check if "countryAddRequest" is not null
@@ -42,7 +48,7 @@ namespace ServicesConcrete
             //}
 
             // Validation: countryAddRequest parameter can't be null
-            if (countryAddRequest.CountryName == null) 
+            if (countryAddRequest.CountryName == null)
             {
                 throw new ArgumentException(nameof(countryAddRequest.CountryName));
             }
@@ -51,42 +57,41 @@ namespace ServicesConcrete
             Country country = countryAddRequest.ToCountry();
 
             // Validation: countryName can't duplicate
-            if (_countries.Any(temp => temp.CountryName == countryAddRequest.CountryName))
+            if (await _countriesRepository.GetCountryByCountryName(countryAddRequest.CountryName) != null)
             {
                 throw new DuplicateNameException("Given country name already exist");
             }
 
             // Generate countryID
-            country.CountryId = Guid.NewGuid();
+            country.CountryID = Guid.NewGuid();
 
             // Aggiunge oggetto country nella lista
-            _countries.Add(country);
+            await _countriesRepository.AddCountry(country);
 
             // Uso dell'extension method
             return country.ToCountryResponse();
         }
 
-        public List<CountryResponse> GetAllCountries()
+        public async Task<List<CountryResponse>> GetAllCountries()
         {
-            return _countries.Select(x => x.ToCountryResponse()).ToList();
+            return (await _countriesRepository.GetAllCountries()).Select(x => x.ToCountryResponse()).ToList();
         }
 
-        public CountryResponse? GetCountryByCountryID(Guid? countryID)
+        public async Task<CountryResponse?> GetCountryByCountryID(Guid? countryID)
         {
-            if (countryID == null) 
+            if (countryID == null)
             {
                 return null;
             }
 
-            Country? result = _countries?.FirstOrDefault(x => x.CountryId == countryID);
+            Country? result = await _countriesRepository.GetCountryByCountryID(countryID.Value);
 
             if (result == null)
             {
                 return null;
-            } 
-
-                return result.ToCountryResponse();
             }
+            return result.ToCountryResponse();
         }
-    
+    }
+
 }
